@@ -17,15 +17,23 @@ def send_to_telegram_group(data, token, chat_id):
     Send a message to a telegram user or group specified on chatId
     chat_id must be a number!
     """
-    header = data[0].keys()
-    rows = [x.values() for x in data]
-    #TODO: instaed of showing the entire data just show the name of the stocks as below formart
-    """
-    BYG_<DATE>: The stocks that are in buy range today are below:
-    stock names
-    """
-    html = tabulate(rows, headers=header, tablefmt="grid")
+    print(data)
+    if data:
+        header = data[0].keys()
+        rows = [x["stock"] for x in data if x]
+        if rows:
+            #TODO: instaed of showing the entire data just show the name of the stocks as below formart
+            html = """
+            BYG: The stocks that are in buy range today are below:
+            {}
+            """.format("\n".join(rows))
+        else:
+            html = """BYG: None of the given stocks are in buy range"""
+    else:
+        html = """BYG: None of the stocks are in buy range"""
+    # html = tabulate(rows, headers=header, tablefmt="grid")
     bot = telegram.Bot(token=token)
+
     bot.sendMessage(chat_id=chat_id, text=html)
 
 
@@ -71,7 +79,6 @@ def get_latest_day_stock_data(symbol, start_date=date.today() - timedelta(days=4
     :return:
     """
     data = get_history(symbol, start=start_date, end=end_date)
-    print(data)
     if data.empty:
         return {}
     row = data.tail(1)
@@ -91,13 +98,13 @@ def suggestion(range_data, previous_day_data):
     stock_last_price = previous_day_data["Last"]
     if buy_start_range <= stock_last_price <= buy_end_range:
         suggest["in_range"] = "YES"
-    else:
-        suggest["in_range"] = "NO"
-    suggest["buy_start_range"] = buy_start_range
-    suggest["buy_end_range"] = buy_end_range
-    suggest["stock_last_price"] = stock_last_price
-    suggest["stock"] = range_data["stock_name"]
-    suggest["group"] = range_data["group_name"]
+        suggest["buy_start_range"] = buy_start_range
+        suggest["buy_end_range"] = buy_end_range
+        suggest["stock_last_price"] = stock_last_price
+        suggest["stock"] = range_data["stock_name"]
+        suggest["group"] = range_data["group_name"]
+
+
     return suggest
 
 
