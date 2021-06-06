@@ -1,0 +1,6 @@
+{
+  "stock_lookup_by_group_api": "https://stocksuggestionslookup.herokuapp.com/thestocklookup/find/suggestions/{}",
+  "groups": ["BYG"],
+  "telegram_token": "1822661060:AAHUUnMIOK4NCLEfKtkexEcwVcwEvJcv9Us",
+  "chat_id": "-563414225"
+}
