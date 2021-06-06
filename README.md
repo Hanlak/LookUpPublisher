@@ -16,4 +16,7 @@
 
 ####    To implement more support freatures for telegram bot monti so that it be able to send the data based on groups to different channels
 
+> **Flow Chart**
+
+![image](https://user-images.githubusercontent.com/22263473/120921442-4efbd400-c6e1-11eb-80ad-c7d3f697ac66.png)
 
