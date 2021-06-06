@@ -19,6 +19,11 @@ def send_to_telegram_group(data, token, chat_id):
     """
     header = data[0].keys()
     rows = [x.values() for x in data]
+    #TODO: instaed of showing the entire data just show the name of the stocks as below formart
+    """
+    BYG_<DATE>: The stocks that are in buy range today are below:
+    stock names
+    """
     html = tabulate(rows, headers=header, tablefmt="grid")
     bot = telegram.Bot(token=token)
     bot.sendMessage(chat_id=chat_id, text=html)
