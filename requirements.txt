@@ -1,5 +1,5 @@
 requests==2.22.0
-nsepy==0.8
+nsepy==0.7
 secure-smtplib==0.1.1
 tabulate==0.8.9
 Mako==1.1.4
